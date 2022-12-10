@@ -1,4 +1,4 @@
-with open('d02.in', 'r') as f:
+with open('d02.ex', 'r') as f:
     d = f.readlines()
 data = [x.replace('\n', '') for x in d]
 s1 = s2 = 0
