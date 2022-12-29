@@ -1,3 +1,4 @@
+import os
 with open('d12.in', 'r') as f:
     d = f.readlines()
 field = [x.replace('\n', '') for x in d]
@@ -10,16 +11,23 @@ for i in range(len(field)):
         ex = field[i].index('E')
 mx = len(field[0])
 my = len(field)
-field[sy] = field[sy][:sx] + 'a' + field[sy][sx + 1:]
-h = 'a'
+field[sy] = field[sy][:sx] + chr(96) + field[sy][sx + 1:]
+h = chr(96)
 steps = 0
-
 ms = 0
 
+
 def canstep(lx, ly, lh):
+    aa = ''
+    # Clearing the Screen
     global steps, ms
     if steps > ms:
         print(steps)
+        os.system('clear')
+        for i in field:
+            print(i)
+        # input(aa)
+
         ms = steps
     # print(lx + 1, ly + 1, lh)
     if lx < 0 or lx >= mx or ly < 0 or ly >= my: return False
@@ -32,10 +40,10 @@ def canstep(lx, ly, lh):
         return False
     steps += 1
     field[ly] = field[ly][:lx] + '#' + field[ly][lx + 1:]
-    if not canstep(lx, ly + 1, saved):
-        if not canstep(lx + 1, ly, saved):
-            if not canstep(lx - 1, ly, saved):
-                if not canstep(lx, ly - 1, saved):
+    if not canstep(lx + 1, ly, saved):
+        if not canstep(lx, ly + 1, saved):
+            if not canstep(lx, ly - 1, saved):
+                if not canstep(lx - 1, ly, saved):
                     field[ly] = field[ly][:lx] + saved + field[ly][lx + 1:]
                     steps -= 1
                     return False
